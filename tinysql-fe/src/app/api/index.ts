@@ -17,6 +17,7 @@ export interface Api {
 
 export interface Connection {
     id: number,
+    title: string,
     databases: DataBase[]
 }
 

@@ -5,6 +5,7 @@ export class MockApi implements Api {
         return [
             {
                 id: 1,
+                title: "First Connection",
                 databases: [
                     {
                         name: "first_db",
@@ -19,6 +20,7 @@ export class MockApi implements Api {
             },
             {
                 id: 2,
+                title: "First Connection",
                 databases: [
                     {
                         name: "first_db",
@@ -33,12 +35,15 @@ export class MockApi implements Api {
             }
         ]
     }
+    
     async createConnection(type: string, config: any): Promise<number> {
         return 1
     }
+
     async getConnection(id: number): Promise<Connection> {
         return {
             id,
+            title: "First Connection",
             databases: [
                 {
                     name: "first_db",
