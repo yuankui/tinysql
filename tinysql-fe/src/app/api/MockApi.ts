@@ -1,10 +1,42 @@
 import { Api, Connection, DataBase, Table } from './index'
 
 export class MockApi implements Api {
-    createConnection(type: string, config: any): number {
+    async getConnections(): Promise<Connection[]> {
+        return [
+            {
+                id: 1,
+                databases: [
+                    {
+                        name: "first_db",
+                    },
+                    {
+                        name: "second_db",
+                    },
+                    {
+                        name: "third_db",
+                    }
+                ]
+            },
+            {
+                id: 2,
+                databases: [
+                    {
+                        name: "first_db",
+                    },
+                    {
+                        name: "second_db",
+                    },
+                    {
+                        name: "third_db",
+                    }
+                ]
+            }
+        ]
+    }
+    async createConnection(type: string, config: any): Promise<number> {
         return 1
     }
-    getConnection(id: number): Connection {
+    async getConnection(id: number): Promise<Connection> {
         return {
             id,
             databases: [
@@ -20,7 +52,7 @@ export class MockApi implements Api {
             ]
         }
     }
-    getDatabase(connectionId: number, database: string): DataBase {
+    async getDatabase(connectionId: number, database: string): Promise<DataBase> {
         return {
             name: database,
             tables: [
@@ -36,7 +68,7 @@ export class MockApi implements Api {
             ]
         }
     }
-    getTable(connectionId: number, database: string, table: string): Table {
+    async getTable(connectionId: number, database: string, table: string): Promise<Table> {
         return {
             name: table,
             fields: [
