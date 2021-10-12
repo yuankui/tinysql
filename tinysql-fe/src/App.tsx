@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import logo from './logo.svg'
 import './App.css'
 
 function App() {
@@ -7,7 +6,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className='p-2 inline-flex bg-blue-400'>hello kitty</h1>
+      <h1 className="p-2 inline-flex bg-blue-400">hello kitty</h1>
     </div>
   )
 }

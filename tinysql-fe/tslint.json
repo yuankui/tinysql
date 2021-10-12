@@ -1,0 +1,22 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-config-standard",
+        "tslint-react",
+        "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {
+        "no-empty": false,
+        "no-empty-interface": false,
+        "array-type": false,
+        "jsx-no-lambda": false,
+        "no-console": false,
+        "await-promise": false,
+        "strict-type-predicates": false,
+        "no-floating-promises": false,
+        "max-classes-per-file": false
+    },
+    "rulesDirectory": []
+}
