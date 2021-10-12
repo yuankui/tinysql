@@ -8,14 +8,17 @@ import { AppState } from './app/model'
 import './index.css'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(commandReducer<AppState>(), composeEnhancers(applyMiddleware(commandMiddleware)));
+const store = createStore(
+    commandReducer<AppState>(),
+    composeEnhancers(applyMiddleware(commandMiddleware))
+)
 
-(async () => {
-  await store.dispatch(new AppInitCommand())
-  ReactDOM.render(
-      <Provider store={store}>
-          <App />
-      </Provider>,
-      document.getElementById('root')
-  )
-})();
+;(async () => {
+    await store.dispatch(new AppInitCommand())
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    )
+})()
