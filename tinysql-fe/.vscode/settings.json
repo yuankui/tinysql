@@ -1,3 +1,32 @@
 {
-    "css.lint.unknownAtRules": "ignore"
+    "typescript.suggest.paths": true,
+    "autoimport.autoComplete": true,
+    "autoimport.useSemiColon": true,
+    // "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "tslint.jsEnable": true,
+    "javascript.format.enable": true,
+    "html.autoClosingTags": true,
+    // "auto-close-tag.SublimeText3Mode": true,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "less.lint.unknownAtRules": "ignore",
+    "editor.quickSuggestions": {
+        "strings": false
+    },
+    "tailwindCSS.experimental.classRegex": [
+        ["classNames\\(([^)]*)\\)", "'([^']*)'"]
+    ],
+    "tailwindCSS.includeLanguages": {
+        "typescript": "typescript",
+        "html": "html",
+        "css": "css",
+        "less": "less"
+    }
 }

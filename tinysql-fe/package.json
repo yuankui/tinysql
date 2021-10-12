@@ -10,6 +10,8 @@
     "antd": "^4.16.13",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
     "redux-commands": "^2.1.4"
   },
   "devDependencies": {
