@@ -7,7 +7,7 @@ export class AppInitCommand extends Command<AppState> {
         store: MiddlewareAPI<Dispatch<AnyAction>, AppState>
     ): Mapper<AppState> {
         return () => ({
-            list: ['hello'],
+            list: ['hello', 'kitty', 'find'],
         })
     }
 }
