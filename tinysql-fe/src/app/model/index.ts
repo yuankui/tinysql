@@ -1,3 +1,6 @@
+import { Api, Connection } from './../api/index'
+
 export interface AppState {
-    list: string[]
+    api: Api
+    connections?: Connection[],
 }
