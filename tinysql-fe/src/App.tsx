@@ -1,5 +1,5 @@
 import './App.css';
-import CollectionListView from './app/views/left/CollectionListView';
+import ConnectionListView from './app/views/left/ConnectionListView';
 import ContentView from './app/views/right/ContentView';
 import SiderActionView from './app/views/SiderActionView';
 
@@ -8,7 +8,7 @@ function App() {
         {/* left */}
         <div className='w-72 bg-white flex flex-col p-4'>
             <SiderActionView/>
-            <CollectionListView/>
+            <ConnectionListView/>
         </div>
 
         {/* right */}
