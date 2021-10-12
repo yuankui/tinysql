@@ -18,9 +18,10 @@ const ExpandIcon: FunctionComponent<Props> = (props) => {
     const icon = !!loading ? (
         <LoadingOutlined />
     ) : (
-        <CaretRightOutlined className='transition-all duration-200' style={{width: 15,
-            height: 15,
-            transform: rotate,}} />
+        <span className="transition-all duration-200 inline-flex items-center justify-center w-4 h-4"
+        style={{ transform: rotate }}>
+            <CaretRightOutlined />
+        </span>
     )
 
     return (

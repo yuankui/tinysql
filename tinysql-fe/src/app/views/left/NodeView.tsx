@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { FunctionComponent } from 'react'
-import { OnChange } from '../../common'
 import ExpandIcon from './ExpandIcon'
 import MoreButton from './MoreButton'
 
@@ -9,7 +8,6 @@ interface Props {
     expand: boolean,
     onExpand: () => any,
     loading: boolean,
-    onLoading: OnChange<boolean>,
     onClick: () => any,
 }
 

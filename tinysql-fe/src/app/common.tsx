@@ -56,3 +56,11 @@ export const If: FunctionComponent<Props> = (props) => {
 }
 
 export abstract class AppCommand extends Command<AppState> {}
+
+export function sleep(n: number) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(null);
+        }, n);
+    })
+}
