@@ -8,13 +8,17 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@types/prismjs": "^1.16.6",
     "antd": "^4.16.13",
     "classnames": "^2.3.1",
+    "prismjs": "^1.25.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
-    "redux-commands": "^2.1.4"
+    "redux-commands": "^2.1.4",
+    "slate": "^0.66.5",
+    "slate-react": "^0.66.7"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

@@ -15,6 +15,9 @@ module.exports = {
         margin: {
             '-0.25': '-3px',
         },
+        minHeight: {
+            '4': '5rem',
+        }
     },
 },
 variants: {
