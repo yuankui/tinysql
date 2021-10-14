@@ -19,7 +19,8 @@
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
-    "redux-commands": "^2.1.4"
+    "redux-commands": "^2.1.4",
+    "sql-formatter": "^4.0.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

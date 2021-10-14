@@ -1,20 +1,56 @@
-import 'codemirror/mode/sql/sql'
-import { FunctionComponent } from 'react'
-import { UnControlled } from 'react-codemirror2'
+import { MenuUnfoldOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
+import { FunctionComponent, useState } from 'react'
+import { Controlled } from 'react-codemirror2'
+import { useApi } from '../../../hooks'
+import { format } from 'sql-formatter';
 
-interface SqlEditorView2Props {}
+import 'codemirror/mode/sql/sql'
+interface SqlEditorView2Props {
+    onExec: (sql: string) => any
+}
 
 const SqlEditorView: FunctionComponent<SqlEditorView2Props> = () => {
+    const api = useApi()
+
+    const [sql, setSql] = useState("select * from json \nwhere name = 'hello'")
+
     return (
-        <UnControlled
-            value={"select * from json \nwhere name = 'hello'"}
-            options={{
-                mode: 'sql',
-                theme: 'material',
-                lineNumbers: true,
-            }}
-            onChange={(editor, data, value) => {}}
-        />
+        <div className="rounded-md overflow-hidden shadow-sm border-1">
+            {/* title */}
+            <Controlled
+                value={sql}
+                options={{
+                    mode: 'sql',
+                    theme: 'default',
+                    firstLineNumber: 1,
+                    lineNumbers: true,
+                }}
+                onBeforeChange={(editor, data, value) => {
+                    setSql(value)
+                }}
+            />
+            <div className="flex flex-row-reverse items-center p-2 px-4 border-t-1">
+                <div className="flex flex-row">
+                    <Button 
+                    onClick={e => {
+                        setSql(format(sql));
+                    }}
+                    shape="round" icon={<MenuUnfoldOutlined />}>
+                        格式化
+                    </Button>
+                    <Button
+                        className="ml-4"
+                        type="primary"
+                        shape="round"
+                        loading={true}
+                    >
+                        执行
+                    </Button>
+                </div>
+            </div>
+            <div />
+        </div>
     )
 }
 

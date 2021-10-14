@@ -6,7 +6,6 @@ import App from './App'
 import { AppInitCommand } from './app/commands/AppInitCommand'
 import { AppState } from './app/model'
 import './index.css'
-import 'antd/dist/antd.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
