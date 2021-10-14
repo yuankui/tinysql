@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
 )
@@ -19,6 +18,7 @@ func main() {
 	m.Use(InjectDB(db))
 	m.Use(render.Renderer())
 	m.Use(InjectJSONWriter())
+
 
 	// router
 	m.Group("/tinysql", func(r martini.Router) {
