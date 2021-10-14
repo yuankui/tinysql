@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { DataBase } from "../../api";
 import NodeView from "./NodeView";
 
@@ -7,9 +7,20 @@ interface DatabaseViewProps {
 }
  
 const DatabaseView: FunctionComponent<DatabaseViewProps> = ({database}) => {
-    return <NodeView expand={true} loading={false} onClick={() => {}} onExpand={()=>{}}>
+    const [tables, setTables] = useState(database.tables);
+
+    return <div>
+        <NodeView expand={true} loading={false} onClick={() => {}} onExpand={()=>{}}>
         {database.name}
-    </NodeView>
+        </NodeView>
+        <div>
+            {
+                tables?.map(t => {
+                    return <TableView key={t.name} table={t} />
+                })
+            }
+        </div>
+    </div>
 }
  
 export default DatabaseView;

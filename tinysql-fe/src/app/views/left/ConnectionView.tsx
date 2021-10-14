@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from 'react'
 import { Connection, DataBase } from '../../api'
 import { sleep } from '../../common'
 import { useApi } from '../../hooks'
+import DatabaseView from './DatabaseView'
 import NodeView from './NodeView'
 
 interface ConnectionViewProps {
@@ -39,6 +40,14 @@ const ConnectionView: FunctionComponent<ConnectionViewProps> = ({
             >
                 {connection.title}
             </NodeView>
+            {/* databases */}
+            <div className='pl-4'>
+            {
+                databases.map(db => {
+                    return <DatabaseView key={db.name} database={db}/>
+                })
+            }
+            </div>
         </div>
     )
 }
