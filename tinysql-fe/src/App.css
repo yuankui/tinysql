@@ -30,7 +30,7 @@ code {
 
 table {
     user-select: text;
-    width: 100%;
+    min-width: 100%;
 }
 table td {
     border: 1px solid #c2c2c2;
