@@ -9,6 +9,7 @@ interface Props {
     onExpand: () => any,
     loading: boolean,
     onClick: () => any,
+    className ?: string,
 }
 
 const NodeView: FunctionComponent<Props> = (props) => {
@@ -53,7 +54,7 @@ const NodeView: FunctionComponent<Props> = (props) => {
                     props.onExpand()
                 }}
             />
-            <div className='px-1 py-0 truncate'>{props.children}</div>
+            <div className={'px-1 py-0 truncate' + " " + (props.className || "")}>{props.children}</div>
         </span>
 
         <MoreButton />

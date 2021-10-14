@@ -4,7 +4,7 @@ import ContentView from './app/views/right/ContentView';
 import SiderActionView from './app/views/SiderActionView';
 
 function App() {
-    return <div className='h-screen w-screen flex flex-row'>
+    return <div className='h-screen w-screen flex flex-row select-none'>
         {/* left */}
         <div className='w-72 bg-white flex flex-col p-4'>
             <SiderActionView/>

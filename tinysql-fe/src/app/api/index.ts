@@ -22,11 +22,14 @@ export interface Connection {
 }
 
 export interface DataBase {
+    connectionId: number,
     name: string
     tables?: Table[]
 }
 
 export interface Table {
+    connectionId: number,
+    dbName: string,
     name: string
     fields?: Field[]
 }
@@ -34,4 +37,5 @@ export interface Table {
 export interface Field {
     name: string
     type: string
+    comment: string
 }
