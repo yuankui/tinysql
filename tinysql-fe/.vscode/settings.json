@@ -28,5 +28,6 @@
         "html": "html",
         "css": "css",
         "less": "less"
-    }
+    },
+    "css.lint.unknownAtRules": "ignore"
 }
