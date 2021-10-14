@@ -17,13 +17,13 @@ func (m *MysqlSupporter) Type() string {
 
 type MysqlConfig struct {
 	Host string `json:"host"`
-	Port string `json:"port"`
+	Port int    `json:"port"`
 	User string `json:"user"`
 	Pass string `json:"pass"`
 }
 
 func (c *MysqlConfig) connectString() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/?charset=utf8mb4&parseTime=True&loc=Local", c.User, c.Pass, c.Host, c.Port)
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/?charset=utf8mb4&parseTime=True&loc=Local", c.User, c.Pass, c.Host, c.Port)
 }
 
 func (m *MysqlSupporter) ConnectTo(config string) Connect {
@@ -55,6 +55,9 @@ func (m *MysqlConnect) Exec(sql string) Dataset {
 
 func (m *MysqlConnect) ShowDatabases() []string {
 	res, err := m.db.Query("show databases")
+
+	defer res.Close()
+	
 	if err != nil {
 		panic(err)
 	}
@@ -66,16 +69,19 @@ func (m *MysqlConnect) ShowDatabases() []string {
 		res.Scan(&line)
 		lines = append(lines, line)
 	}
+
 	return lines
 }
 
 func (m *MysqlConnect) ShowTables(db string) []string {
 	_, err := m.db.Exec(fmt.Sprintf("use %s;", db))
+
 	if err != nil {
 		panic(err)
 	}
 
 	res, err := m.db.Query("show tables")
+	defer res.Close()
 	if err != nil {
 		panic(err)
 	}
@@ -95,6 +101,7 @@ func (m *MysqlConnect) ShowFields(db string, tb string) []Field {
 	if err != nil {
 		panic(err)
 	}
+	defer res.Close()
 
 	fields := []Field{}
 

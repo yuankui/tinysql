@@ -20,13 +20,15 @@ func main() {
 
 	m.Map(&DBGetter{db: db})
 	m.Map(&SupporterFactory{})
-	m.Use(InjectJSONWriter())
+	m.Use(InjectTinyContext())
 
 	// router
 	m.Group("/tinysql", func(r martini.Router) {
 		r.Get("/connections", GetConnections)
 		r.Post("/create", CreateConnect)
 		r.Get("/connection/:id", GetConnection)
+		r.Get("/database", GetDatabase)
+		r.Get("/table", GetTable)
 	})
 
 	m.Run()

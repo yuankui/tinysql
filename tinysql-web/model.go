@@ -6,7 +6,7 @@ type ConnectionResp struct {
 	Databases []string `json:"databases"`
 }
 
-type DataBases struct {
+type DataBase struct {
 	ConnectionId uint    `json:"connectionId"`
 	Name         string  `json:"name"`
 	Tables       []string `json:"tables"`
