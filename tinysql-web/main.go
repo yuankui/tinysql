@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -23,13 +24,29 @@ func main() {
 	// set port
 	os.Setenv("PORT", "3001")
 
+	// setup db
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		panic("fail to connect db test.db")
+	}
+
+	db.AutoMigrate(Connection{})
+
+	db.Create(&Connection{
+		Type:   "mysql",
+		Config: "mysql://localhost:3306/test?",
+	})
+
+	var connections []Connection
+
+	db.Find(&connections)
+
 	// init server
 	m := martini.Classic()
 	m.Use(render.Renderer())
-	m.Get("/", func(r render.Render) {
-		r.JSON(200, Person{
-			Name: "yuankui",
-			Age:  11,
+	m.Group("/tinysql", func(r martini.Router) {
+		r.Get("/connections", func(re render.Render) {
+			re.JSON(200, []string{"hello connections"})
 		})
 	})
 	m.Run()
