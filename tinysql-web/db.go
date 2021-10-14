@@ -36,7 +36,7 @@ func InjectDB(db *gorm.DB) martini.Handler {
 
 func OpenDB() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-	db.AutoMigrate()
+	db.AutoMigrate(&Connection{})
 	if err != nil {
 		panic("fail to connect db test.db")
 	}
