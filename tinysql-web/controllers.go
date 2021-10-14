@@ -7,18 +7,15 @@ import (
 /// 保存连接记录
 func CreateConnect(db *DBGetter, params martini.Params, context TinyContext) {
 
-	tp := context.GetUrlParam("type")
-	config := context.GetUrlParam("config")
-	title := context.GetUrlParam("title")
+	var conn Connection
+	err := context.ParseBody(&conn)
 
-	println(title)
-	connection := Connection{
-		Type:   tp,
-		Config: config,
-		Title:  title,
+	if err != nil {
+		context.Error(err.Error())
+		return
 	}
 
-	db.GetDb().Create(&connection)
+	db.GetDb().Create(&conn)
 	context.OK("OK")
 }
 

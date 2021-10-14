@@ -56,7 +56,11 @@ export class MockApi implements Api {
         ]
     }
 
-    async createConnection(type: string, config: any): Promise<number> {
+    async createConnection(
+        title: string,
+        type: string,
+        config: any
+    ): Promise<number> {
         return 1
     }
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 
@@ -10,7 +11,7 @@ import (
 
 type tinyContext struct {
 	res http.ResponseWriter
-	req * http.Request
+	req *http.Request
 }
 
 type TinyContext interface {
@@ -18,6 +19,7 @@ type TinyContext interface {
 	Error(msg string)
 	GetUrlParam(name string) string
 	GetUrlParamInt(name string) int
+	ParseBody(model interface{}) error
 }
 
 type Result struct {
@@ -29,9 +31,9 @@ type Result struct {
 func (context *tinyContext) OK(resp interface{}) {
 	context.res.Header().Add("Content-Type", "application/json")
 
-	jsonStr, err := json.Marshal(Result {
+	jsonStr, err := json.Marshal(Result{
 		Code: 0,
-		Msg: "",
+		Msg:  "",
 		Data: resp,
 	})
 
@@ -42,19 +44,19 @@ func (context *tinyContext) OK(resp interface{}) {
 	}
 }
 
-func (context * tinyContext) Error(msg string) {
-	errorJson, _ := json.Marshal(Result {
+func (context *tinyContext) Error(msg string) {
+	errorJson, _ := json.Marshal(Result{
 		Code: 1,
-		Msg: "parse JSON ERROR",
+		Msg:  "parse JSON ERROR",
 	})
 	context.res.Write(errorJson)
 }
 
-func (context * tinyContext) GetUrlParam(name string) string {
+func (context *tinyContext) GetUrlParam(name string) string {
 	return context.req.URL.Query().Get(name)
 }
 
-func (context * tinyContext) GetUrlParamInt(name string) int {
+func (context *tinyContext) GetUrlParamInt(name string) int {
 	value := context.GetUrlParam(name)
 	ret, err := strconv.Atoi(value)
 	if err != nil {
@@ -63,6 +65,15 @@ func (context * tinyContext) GetUrlParamInt(name string) int {
 	return ret
 }
 
+func (context *tinyContext) ParseBody(model interface{}) error {
+	bytes, err := ioutil.ReadAll(context.req.Body)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(bytes, model)
+	return err
+}
 func InjectTinyContext() martini.Handler {
 	return func(res http.ResponseWriter, req *http.Request, c martini.Context) {
 
