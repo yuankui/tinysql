@@ -9,12 +9,15 @@ export class MockApi implements Api {
                 databases: [
                     {
                         name: "first_db",
+                        connectionId: 1,
                     },
                     {
                         name: "second_db",
+                        connectionId: 1,
                     },
                     {
                         name: "third_db",
+                        connectionId: 1,
                     }
                 ]
             },
@@ -24,12 +27,15 @@ export class MockApi implements Api {
                 databases: [
                     {
                         name: "first_db",
+                        connectionId: 2,
                     },
                     {
                         name: "second_db",
+                        connectionId: 2,
                     },
                     {
                         name: "third_db",
+                        connectionId: 2,
                     }
                 ]
             }
@@ -47,12 +53,15 @@ export class MockApi implements Api {
             databases: [
                 {
                     name: "first_db",
+                    connectionId: id,
                 },
                 {
                     name: "second_db",
+                    connectionId: id,
                 },
                 {
                     name: "third_db",
+                    connectionId: id,
                 }
             ]
         }
@@ -60,15 +69,22 @@ export class MockApi implements Api {
     async getDatabase(connectionId: number, database: string): Promise<DataBase> {
         return {
             name: database,
+            connectionId,
             tables: [
                 {
                     name: "table1",
+                    connectionId,
+                    dbName: database,
                 },
                 {
                     name: "table2",
+                    connectionId,
+                    dbName: database,
                 },
                 {
                     name: "table3",
+                    connectionId,
+                    dbName: database,
                 }
             ]
         }
@@ -76,18 +92,23 @@ export class MockApi implements Api {
     async getTable(connectionId: number, database: string, table: string): Promise<Table> {
         return {
             name: table,
+            connectionId,
+            dbName: database,
             fields: [
                 {
                     name: "field1",
-                    type: "varchar(30)",     
+                    type: "varchar(30)",
+                    comment: "字段1",
                 },
                 {
                     name: "field2",
                     type: "varchar(20)",
+                    comment: "字段1",
                 },
                 {
                     name: "field3",
                     type: "bigint",
+                    comment: "字段1xxxxxxxxxxxxxxxx",
                 }
             ]
         }

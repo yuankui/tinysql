@@ -19,7 +19,7 @@ const ConnectionView: FunctionComponent<ConnectionViewProps> = ({
     const [expand, setExpand] = useState(false)
 
     return (
-        <div className="bg-gray-400 h-52 m-4">
+        <div className="bg-gray-200 m-4">
             <NodeView
                 expand={expand}
                 className="flex flex-row items-center"

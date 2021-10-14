@@ -8,7 +8,7 @@ const ConnectionListView: FunctionComponent<CollectionListViewProps> = () => {
     const connections = useSelector((state) => state.connections) || []
 
     return (
-        <div className="flex-1 bg-purple-300 flex flex-col justify-start shadow-inner">
+        <div className="flex-1 flex flex-col justify-start shadow-inner">
             {connections.map((c) => {
                 return <ConnectionView key={c.id} connection={c} />
             })}
