@@ -24,13 +24,13 @@ export interface TableResult {
 export interface Connection {
     id: number,
     title: string,
-    databases: DataBase[]
+    databases: string[]
 }
 
 export interface DataBase {
     connectionId: number,
     name: string
-    tables?: Table[]
+    tables?: string[]
 }
 
 export interface Table {

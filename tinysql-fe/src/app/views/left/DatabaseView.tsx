@@ -43,7 +43,11 @@ const DatabaseView: FunctionComponent<DatabaseViewProps> = ({ database }) => {
             <div className="pl-4">
                 <If test={expand}>
                     {tables?.map((t) => {
-                        return <TableView key={t.name} table={t} />
+                        return <TableView key={t} table={{
+                            connectionId: database.connectionId,
+                            dbName: database.name,
+                            name: t,
+                        }} />
                     })}
                 </If>
             </div>

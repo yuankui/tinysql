@@ -13,7 +13,7 @@ interface ConnectionViewProps {
 const ConnectionView: FunctionComponent<ConnectionViewProps> = ({
     connection,
 }) => {
-    const [databases, setDatabases] = useState<DataBase[]>([])
+    const [databases, setDatabases] = useState<string[]>([])
     const api = useApi()
     const [loading, setLoading] = useState(false)
     const [expand, setExpand] = useState(false)
@@ -47,7 +47,10 @@ const ConnectionView: FunctionComponent<ConnectionViewProps> = ({
             <div className="pl-4">
                 <If test={expand}>
                     {databases.map((db) => {
-                        return <DatabaseView key={db.name} database={db} />
+                        return <DatabaseView key={db} database={{
+                            connectionId: connection.id,
+                            name: db,
+                        }} />
                     })}
                 </If>
             </div>
