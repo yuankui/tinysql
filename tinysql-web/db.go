@@ -8,21 +8,29 @@ import (
 	"gorm.io/gorm"
 )
 
-type DBGetter struct {
+type Connection struct {
+	gorm.Model
+
+	Title  string `json:"title"`
+	Type   string `json:"type"`
+	Config string `json:"config"`
+}
+
+type dBGetter struct {
 	db *gorm.DB
 }
 
-type DBGette interface {
+type DBGetter interface {
 	GetDb() *gorm.DB
 }
 
-func (m *DBGetter) GetDb() *gorm.DB {
+func (m *dBGetter) GetDb() *gorm.DB {
 	return m.db
 }
 
 func InjectDB(db *gorm.DB) martini.Handler {
 	return func(res http.ResponseWriter, req *http.Request, c martini.Context) {
-		c.MapTo(&DBGetter{db: db}, (*DBGette)(nil))
+		c.MapTo(&dBGetter{db: db}, (*DBGetter)(nil))
 	}
 }
 

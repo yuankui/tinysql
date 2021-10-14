@@ -7,11 +7,11 @@ import (
 	"github.com/go-martini/martini"
 )
 
-type JSONWriter struct {
+type jsonWriter struct {
 	res http.ResponseWriter
 }
 
-type JSONWrite interface {
+type JSONWriter interface {
 	OK(resp interface{})
 	Error(msg string)
 }
@@ -22,7 +22,7 @@ type Result struct {
 	Data interface{} `json:"data"`
 }
 
-func (writer *JSONWriter) OK(resp interface{}) {
+func (writer *jsonWriter) OK(resp interface{}) {
 	writer.res.Header().Add("Content-Type", "application/json")
 
 	jsonStr, err := json.Marshal(Result {
@@ -38,7 +38,7 @@ func (writer *JSONWriter) OK(resp interface{}) {
 	}
 }
 
-func (writer * JSONWriter) Error(msg string) {
+func (writer * jsonWriter) Error(msg string) {
 	errorJson, _ := json.Marshal(Result {
 		Code: 1,
 		Msg: "parse JSON ERROR",
@@ -49,6 +49,6 @@ func (writer * JSONWriter) Error(msg string) {
 func InjectJSONWriter() martini.Handler {
 	return func(res http.ResponseWriter, req *http.Request, c martini.Context) {
 
-		c.MapTo(&JSONWriter{res: res}, (*JSONWrite)(nil))
+		c.MapTo(&jsonWriter{res: res}, (*JSONWriter)(nil))
 	}
 }
