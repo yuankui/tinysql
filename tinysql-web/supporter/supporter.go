@@ -22,14 +22,9 @@ type Dataset struct {
 	Data   [][]interface{}
 }
 
-
-
-func GetSupporters() map[string]SqlSupporter {
-	mysql := MysqlSupporter {}
-	var conn SqlSupporter = &mysql
-
-	return map[string]SqlSupporter{
-		"hello": conn,
+func GetSupporters() []SqlSupporter {
+	supporters := []SqlSupporter{
+		&MysqlSupporter{},
 	}
+	return supporters
 }
-

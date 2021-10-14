@@ -12,7 +12,7 @@ func CreateConnect(db DBGetter, params martini.Params, json JSONWriter) {
 	connection := Connection{
 		Type:   tp,
 		Config: config,
-		Title: title,
+		Title:  title,
 	}
 
 	db.GetDb().Create(&connection)
@@ -23,14 +23,18 @@ func GetConnections(db DBGetter, json JSONWriter) {
 	connections := []Connection{}
 	db.GetDb().Find(&connections)
 
-	respConnections := []ConnectionResp {}
+	respConnections := []ConnectionResp{}
 
 	for _, v := range connections {
 		respConnections = append(respConnections, ConnectionResp{
-			Id: v.ID,
+			Id:    v.ID,
 			Title: v.Title,
 		})
 	}
 
 	json.OK(respConnections)
+}
+
+func GetConnection(db DBGetter, json JSONWriter) {
+
 }
