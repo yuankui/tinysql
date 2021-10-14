@@ -5,10 +5,17 @@ import (
 
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
+	"gorm.io/gorm"
 )
 
+type Product struct {
+	gorm.Model
+	Code  string
+	Price uint
+}
+
 type Person struct {
-	Name string `json: "name"`
+	Name string `json:"name"`
 	Age  int    `json:"age"`
 }
 
