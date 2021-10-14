@@ -26,7 +26,7 @@ func (c *MysqlConfig) connectString() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%s)/?charset=utf8mb4&parseTime=True&loc=Local", c.User, c.Pass, c.Host, c.Port)
 }
 
-func (m *MysqlSupporter) ConnectTo(config string) *MysqlConnect {
+func (m *MysqlSupporter) ConnectTo(config string) Connect {
 	conf := MysqlConfig{}
 	err := json.Unmarshal([]byte(config), &conf)
 	if err != nil {
@@ -39,13 +39,14 @@ func (m *MysqlSupporter) ConnectTo(config string) *MysqlConnect {
 		panic(err)
 	}
 
-	return &MysqlConnect{
-		db: *db,
+	conn := MysqlConnect{
+		db: db,
 	}
+	return &conn
 }
 
 type MysqlConnect struct {
-	db sql.DB
+	db *sql.DB
 }
 
 func (m *MysqlConnect) Exec(sql string) Dataset {

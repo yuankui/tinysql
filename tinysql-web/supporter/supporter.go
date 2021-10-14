@@ -2,7 +2,7 @@ package supporter
 
 type SqlSupporter interface {
 	Type() string
-	ConnectTo(config string)
+	ConnectTo(config string) Connect
 }
 
 type Connect interface {
@@ -20,5 +20,16 @@ type Field struct {
 type Dataset struct {
 	Fields []string
 	Data   [][]interface{}
+}
+
+
+
+func GetSupporters() map[string]SqlSupporter {
+	mysql := MysqlSupporter {}
+	var conn SqlSupporter = &mysql
+
+	return map[string]SqlSupporter{
+		"hello": conn,
+	}
 }
 
