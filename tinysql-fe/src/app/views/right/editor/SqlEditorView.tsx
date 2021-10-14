@@ -6,11 +6,11 @@ import { useApi } from '../../../hooks'
 import { format } from 'sql-formatter';
 
 import 'codemirror/mode/sql/sql'
-interface SqlEditorView2Props {
+interface SqlEditorViewProps {
     onExec: (sql: string) => any
 }
 
-const SqlEditorView: FunctionComponent<SqlEditorView2Props> = () => {
+const SqlEditorView: FunctionComponent<SqlEditorViewProps> = ({onExec}) => {
     const api = useApi()
 
     const [sql, setSql] = useState("select * from json \nwhere name = 'hello'")
@@ -40,10 +40,12 @@ const SqlEditorView: FunctionComponent<SqlEditorView2Props> = () => {
                         格式化
                     </Button>
                     <Button
+                    onClick={e => {
+                        onExec && onExec(sql);
+                    }}
                         className="ml-4"
                         type="primary"
                         shape="round"
-                        loading={true}
                     >
                         执行
                     </Button>

@@ -13,8 +13,14 @@ export interface Api {
     getConnections(): Promise<Connection[]>,
     getDatabase(connectionId: number, database: string): Promise<DataBase>
     getTable(connectionId: number, database: string, table: string): Promise<Table>
+    getQueryResult(connectionId: number, database: string, sql: string): Promise<TableResult>,
 }
 
+export interface TableResult {
+    fields: string[],
+    data: string[][]
+    
+}
 export interface Connection {
     id: number,
     title: string,
