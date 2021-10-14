@@ -57,7 +57,7 @@ func (m *MysqlConnect) ShowDatabases() []string {
 	res, err := m.db.Query("show databases")
 
 	defer res.Close()
-	
+
 	if err != nil {
 		panic(err)
 	}
