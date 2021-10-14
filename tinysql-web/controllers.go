@@ -4,11 +4,14 @@ import (
 	"github.com/go-martini/martini"
 )
 
-func CreateConnect(db DBGetter, params martini.Params, json JSONWriter) {
+/// 保存连接记录
+func CreateConnect(db *DBGetter, params martini.Params, json JSONWriter, context martini.Context) {
+	
 	tp := params["type"]
 	config := params["config"]
 	title := params["title"]
 
+	println(title)
 	connection := Connection{
 		Type:   tp,
 		Config: config,
@@ -19,7 +22,7 @@ func CreateConnect(db DBGetter, params martini.Params, json JSONWriter) {
 	json.OK("OK")
 }
 
-func GetConnections(db DBGetter, json JSONWriter) {
+func GetConnections(db *DBGetter, json JSONWriter) {
 	connections := []Connection{}
 	db.GetDb().Find(&connections)
 
@@ -35,6 +38,27 @@ func GetConnections(db DBGetter, json JSONWriter) {
 	json.OK(respConnections)
 }
 
-func GetConnection(db DBGetter, json JSONWriter) {
+func GetConnection(db *DBGetter, json JSONWriter, params martini.Params, supporterFactory *SupporterFactory) {
+	id := params["id"]
 
+	var conn Connection
+	db.GetDb().First(&conn, "id = ?", id)
+
+	supporter := supporterFactory.GetSupporter(conn.Type)
+
+	if supporter == nil {
+		json.Error("no supporter found")
+		return
+	}
+
+	connect := supporter.ConnectTo(conn.Config)
+	databases := connect.ShowDatabases()
+
+	var res ConnectionResp = ConnectionResp{
+		Id:        conn.ID,
+		Title:     conn.Title,
+		Databases: databases,
+	}
+
+	json.OK(res)
 }

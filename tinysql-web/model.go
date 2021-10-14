@@ -3,20 +3,20 @@ package main
 type ConnectionResp struct {
 	Id        uint      `json:"id"`
 	Title     string    `json:"title"`
-	Databases DataBases `json:"databases"`
+	Databases []string `json:"databases"`
 }
 
 type DataBases struct {
 	ConnectionId uint    `json:"connectionId"`
 	Name         string  `json:"name"`
-	Tables       []Table `json:"tables"`
+	Tables       []string `json:"tables"`
 }
 
 type Table struct {
 	ConnectionId uint     `json:"connectionId"`
 	DbName       string   `json:"dbName"`
 	Name         string   `json:"name"`
-	Fields       []string `json:"fields"`
+	Fields       []Field `json:"fields"`
 }
 
 type Field struct {

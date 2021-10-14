@@ -1,4 +1,4 @@
-package supporter
+package main
 
 type SqlSupporter interface {
 	Type() string
@@ -12,19 +12,25 @@ type Connect interface {
 	ShowFields(db string, tb string) []Field
 }
 
-type Field struct {
-	Name    string
-	Type    string
-	Comment string
-}
 type Dataset struct {
 	Fields []string
 	Data   [][]interface{}
 }
 
-func GetSupporters() []SqlSupporter {
+type SupporterFactory struct{}
+
+func (m *SupporterFactory) GetSupporters() []SqlSupporter {
 	supporters := []SqlSupporter{
 		&MysqlSupporter{},
 	}
 	return supporters
+}
+
+func (m *SupporterFactory) GetSupporter(Type string) SqlSupporter {
+	for _, supporter := range m.GetSupporters() {
+		if supporter.Type() == Type {
+			return supporter
+		}
+	}
+	return nil
 }

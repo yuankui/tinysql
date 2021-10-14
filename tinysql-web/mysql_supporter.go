@@ -1,4 +1,4 @@
-package supporter
+package main
 
 import (
 	"database/sql"

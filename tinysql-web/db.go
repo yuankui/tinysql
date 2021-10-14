@@ -1,9 +1,6 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/go-martini/martini"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -16,22 +13,12 @@ type Connection struct {
 	Config string `json:"config"`
 }
 
-type dBGetter struct {
+type DBGetter struct {
 	db *gorm.DB
 }
 
-type DBGetter interface {
-	GetDb() *gorm.DB
-}
-
-func (m *dBGetter) GetDb() *gorm.DB {
+func (m *DBGetter) GetDb() *gorm.DB {
 	return m.db
-}
-
-func InjectDB(db *gorm.DB) martini.Handler {
-	return func(res http.ResponseWriter, req *http.Request, c martini.Context) {
-		c.MapTo(&dBGetter{db: db}, (*DBGetter)(nil))
-	}
 }
 
 func OpenDB() *gorm.DB {
