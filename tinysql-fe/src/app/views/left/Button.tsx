@@ -20,6 +20,7 @@ const Button: FunctionComponent<Props> = (props) => {
     )
     return <button className={className} onClick={(e) => {
         props.onClick && props.onClick(e);
+        e.stopPropagation();
     }}>
         {props.children}
     </button>;

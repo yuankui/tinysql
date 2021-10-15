@@ -1,7 +1,7 @@
 import classNames from 'classnames'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, ReactNode } from 'react'
 import ExpandIcon from './ExpandIcon'
-import MoreButton from './MoreButton'
+
 
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
     loading: boolean,
     onClick: () => any,
     className ?: string,
+    trailing ?: ReactNode,
 }
 
 const NodeView: FunctionComponent<Props> = (props) => {
@@ -33,10 +34,10 @@ const NodeView: FunctionComponent<Props> = (props) => {
         'items-center',
         'justify-between',
         'py-1',
-        'px-0.5',
+        'px-1',
         'bg-transparent',
-        'hover:bg-gray-500',
-        'active:bg-gray-200',
+        'hover:bg-gray-200',
+        'active:bg-gray-300',
     )
     return <div
         className={nodeClass}
@@ -57,7 +58,7 @@ const NodeView: FunctionComponent<Props> = (props) => {
             <div className={'px-1 py-0 truncate' + " " + (props.className || "")}>{props.children}</div>
         </span>
 
-        <MoreButton />
+        {props.trailing}
     </div>
 }
 

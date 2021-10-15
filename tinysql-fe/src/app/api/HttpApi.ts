@@ -6,6 +6,17 @@ export class HttpApi implements Api {
         this.host = host
     }
 
+    async deleteConnection(id: number): Promise<void> {
+        const resp = await fetch(this.host + '/tinysql/deleteConnection/' + id, {
+            method: 'post',
+        })
+
+        const ret = await resp.json()
+        if (ret.code !== 0) {
+            throw new Error(ret.msg)
+        }
+    }
+
     async createConnection(
         title: string,
         type: string,

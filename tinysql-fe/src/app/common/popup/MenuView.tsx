@@ -1,15 +1,10 @@
 import classNames from 'classnames';
 import {FunctionComponent, ReactNode} from 'react';
+import { Action } from '.';
 import MenuItemView from "./MenuItemView";
 
 interface Props {
-    menus: Array<Menu>,
-}
-
-export interface Menu {
-    title: ReactNode,
-    onClick: () => any,
-    disable ?: boolean,
+    actions: Action[],
 }
 const MenuView: FunctionComponent<Props> = (props) => {
     const menusClass = classNames(
@@ -21,8 +16,8 @@ const MenuView: FunctionComponent<Props> = (props) => {
     )
     return <div className={menusClass}>
         {
-            props.menus.map((menu, i) => {
-                return <MenuItemView key={i} onClick={menu.onClick} menu={menu}/>
+            props.actions.map((action, i) => {
+                return <MenuItemView key={i} action={action}/>
             })
         }
     </div>;

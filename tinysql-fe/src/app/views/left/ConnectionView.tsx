@@ -1,7 +1,11 @@
-import { LinkOutlined } from '@ant-design/icons'
-import { FunctionComponent, useState } from 'react'
+import { EllipsisOutlined, LinkOutlined } from '@ant-design/icons'
+import { FunctionComponent, ReactNode, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Connection, DataBase } from '../../api'
+import { DeleteConnectionsCommand as DeleteConnectionCommand } from '../../commands/DeleteConnectionCommand'
 import { If, sleep } from '../../common'
+import { Action } from '../../common/popup'
+import PopupButton from '../../common/popup/PopupButton'
 import { useApi } from '../../hooks'
 import DatabaseView from './DatabaseView'
 import NodeView from './NodeView'
@@ -17,6 +21,23 @@ const ConnectionView: FunctionComponent<ConnectionViewProps> = ({
     const api = useApi()
     const [loading, setLoading] = useState(false)
     const [expand, setExpand] = useState(false)
+    const dispatch = useDispatch()
+
+    const actions: Action[] = [
+        {
+            title: '删除',
+            confirmMessage: '确认删除吗？',
+            onClick() {
+                dispatch(new DeleteConnectionCommand(connection.id))
+            },
+        },
+    ]
+
+    const actionButton: ReactNode = (
+        <PopupButton actions={actions}>
+            <EllipsisOutlined />
+        </PopupButton>
+    )
 
     return (
         <div className="">
@@ -39,6 +60,7 @@ const ConnectionView: FunctionComponent<ConnectionViewProps> = ({
                     setDatabases(conn.databases)
                     setExpand(true)
                 }}
+                trailing={actionButton}
             >
                 <LinkOutlined className="mr-2" />
                 <span>{connection.title}</span>
@@ -47,10 +69,15 @@ const ConnectionView: FunctionComponent<ConnectionViewProps> = ({
             <div className="pl-4">
                 <If test={expand}>
                     {databases.map((db) => {
-                        return <DatabaseView key={db} database={{
-                            connectionId: connection.id,
-                            name: db,
-                        }} />
+                        return (
+                            <DatabaseView
+                                key={db}
+                                database={{
+                                    connectionId: connection.id,
+                                    name: db,
+                                }}
+                            />
+                        )
                     })}
                 </If>
             </div>

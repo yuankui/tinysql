@@ -8,7 +8,8 @@ export interface Api {
      *
      * @returns ID
      */
-    createConnection(title: string, type: string, config: any): Promise<number>
+    createConnection(title: string, type: string, config: any): Promise<number>,
+    deleteConnection(id: number): Promise<void>,
     getConnection(id: number): Promise<Connection>
     getConnections(): Promise<Connection[]>
     getDatabase(connectionId: number, database: string): Promise<DataBase>

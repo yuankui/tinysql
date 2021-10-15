@@ -4,7 +4,6 @@ import (
 	"github.com/go-martini/martini"
 )
 
-
 /// 保存连接记录
 func CreateConnect(db *DBGetter, params martini.Params, context TinyContext) {
 
@@ -17,6 +16,14 @@ func CreateConnect(db *DBGetter, params martini.Params, context TinyContext) {
 	}
 
 	db.GetDb().Create(&conn)
+	context.OK("OK")
+}
+
+/// 删除连接记录
+func DeleteConnect(db *DBGetter, params martini.Params, context TinyContext) {
+	id := params["id"]
+
+	db.GetDb().Delete(&Connection{}, id)
 	context.OK("OK")
 }
 

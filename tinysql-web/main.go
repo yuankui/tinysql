@@ -26,6 +26,7 @@ func main() {
 	m.Group("/tinysql", func(r martini.Router) {
 		r.Get("/connections", GetConnections)
 		r.Post("/create", CreateConnect)
+		r.Post("/deleteConnection/:id", DeleteConnect)
 		r.Get("/connection/:id", GetConnection)
 		r.Get("/database", GetDatabase)
 		r.Get("/table", GetTable)
