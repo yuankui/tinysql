@@ -1,7 +1,7 @@
 import './App.css';
 import ConnectionListView from './app/views/left/ConnectionListView';
 import ContentView from './app/views/right/ContentView';
-import SiderActionView from './app/views/SiderActionView';
+import SiderActionView from './app/views/left/SiderActionView';
 
 function App() {
     return <div className='h-screen w-screen flex flex-row select-none'>

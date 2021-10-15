@@ -18,11 +18,11 @@ const Button: FunctionComponent<Props> = (props) => {
         'hover:bg-gray-400',
         (props.className || ""),
     )
-    return <span className={className} onClick={(e) => {
+    return <button className={className} onClick={(e) => {
         props.onClick && props.onClick(e);
     }}>
         {props.children}
-    </span>;
+    </button>;
 };
 
 export default Button;
