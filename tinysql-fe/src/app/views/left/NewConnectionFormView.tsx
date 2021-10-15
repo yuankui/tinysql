@@ -1,4 +1,4 @@
-import { Button, Checkbox, Form, Input, Select } from 'antd'
+import { Button, Form, Input, Select } from 'antd'
 import { FunctionComponent } from 'react'
 import MysqlConfigView from './myqsl/MysqlConfigView'
 
@@ -52,7 +52,7 @@ const NewConnectionFormView: FunctionComponent<NewConnectionFormViewProps> =
                     </Select>
                 </Form.Item>
 
-                
+                {/* TODO 这里写死，后续可以通过type字段，动态切换 */}
                 <MysqlConfigView />
 
 

@@ -1,8 +1,7 @@
-import { Form, Input } from 'antd'
+import { Form, Input, InputNumber } from 'antd'
 import { FunctionComponent } from 'react'
 
-interface MysqlConfigViewProps {
-}
+interface MysqlConfigViewProps {}
 
 const MysqlConfigView: FunctionComponent<MysqlConfigViewProps> = () => {
     return (
@@ -19,13 +18,41 @@ const MysqlConfigView: FunctionComponent<MysqlConfigViewProps> = () => {
             >
                 <Input />
             </Form.Item>
-            <Form.Item name={['config', 'port']} label="端口">
+            <Form.Item
+                rules={[
+                    {
+                        required: true,
+                        message: '不能为空',
+                    },
+                    
+                ]}
+                name={['config', 'port']}
+                label="端口"
+            >
+                <InputNumber />
+            </Form.Item>
+            <Form.Item
+                rules={[
+                    {
+                        required: true,
+                        message: '不能为空',
+                    },
+                ]}
+                name={['config', 'user']}
+                label="用户名"
+            >
                 <Input />
             </Form.Item>
-            <Form.Item name={['config', 'user']} label="用户名">
-                <Input />
-            </Form.Item>
-            <Form.Item name={['config', 'pass']} label="密码">
+            <Form.Item
+                rules={[
+                    {
+                        required: true,
+                        message: '不能为空',
+                    },
+                ]}
+                name={['config', 'pass']}
+                label="密码"
+            >
                 <Input type="password" />
             </Form.Item>
         </>
