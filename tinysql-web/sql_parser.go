@@ -19,7 +19,7 @@ func parse(sql string) (SqlType, error) {
 	}
 
 	switch stmt.(type) {
-	case *sqlparser.Select, *sqlparser.Show:
+	case *sqlparser.Select, *sqlparser.Show, *sqlparser.OtherRead:
 		return Select, nil
 	case *sqlparser.Update, *sqlparser.Delete, *sqlparser.DDL:
 		return Update, nil
