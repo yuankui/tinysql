@@ -1,8 +1,9 @@
-import { AnyAction, Dispatch, MiddlewareAPI } from 'redux';
-import { Command } from 'redux-commands';
-import { AppState } from '../model';
-import { UpdateApiCommand } from './UpdateApiCommand';
-import { UpdateConnectionsCommand } from './UpdateConnectionsCommand';
+import { InitTabCommand } from './tab/InitTabCommand'
+import { AnyAction, Dispatch, MiddlewareAPI } from 'redux'
+import { Command } from 'redux-commands'
+import { AppState } from '../model'
+import { UpdateApiCommand } from './UpdateApiCommand'
+import { UpdateConnectionsCommand } from './UpdateConnectionsCommand'
 
 export class AppInitCommand extends Command<AppState> {
     async process(
@@ -10,5 +11,6 @@ export class AppInitCommand extends Command<AppState> {
     ): Promise<void> {
         await store.dispatch(new UpdateApiCommand())
         await store.dispatch(new UpdateConnectionsCommand())
+        await store.dispatch(new InitTabCommand())
     }
 }

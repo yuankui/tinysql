@@ -24,7 +24,7 @@ const SqlTableOutputView: FunctionComponent<SqlTableOutputViewProps> = ({
     const disableNext = data.data.length === 0
 
     return (
-        <div className="flex-1">
+        <div className="flex-1 overflow-auto">
             <table>
                 <thead className="bg-gray-200">
                     <tr className="">

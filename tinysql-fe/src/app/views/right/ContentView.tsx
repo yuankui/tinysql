@@ -1,41 +1,44 @@
 import { Tabs } from 'antd'
-import { FunctionComponent, useState } from 'react'
-import { TableResult } from '../../api'
-import { useApi } from '../../hooks'
-import SqlEditorView from './editor/SqlEditorView'
-import SqlTableOutputView from './output/SqlTableOutputView'
+import { FunctionComponent } from 'react'
+import { useDispatch } from 'react-redux'
+import { SwitchTabCommand } from '../../commands/tab/SwitchTabCommand'
+import { useSelector } from '../../hooks'
+import SqlExecuteView from './SqlExecuteView'
 
-interface ContentViewProps {}
+interface ContentViewProps {
+}
 
-const PAGE_SIZE = 50
+const ContentView: FunctionComponent<ContentViewProps> = ({
+}) => {
+    const tabs = useSelector((state) => state.tabs)
+    const dispatch = useDispatch()
 
-const ContentView: FunctionComponent<ContentViewProps> = () => {
-    const [result, setResult] = useState<TableResult>()
-    const api = useApi()
-    const [sql, setSql] = useState('')
-    const [page, setPage] = useState(0)
+    let activeTabIndex = 0
+    const tabViews = (tabs || []).map((t, i) => {
+        if (t.open) {
+            activeTabIndex = i
+        }
+        return (
+            <Tabs.TabPane tab={t.connectionId + '/' + t.dbName} key={String(i)}>
+                <SqlExecuteView
+                    open={t.open}
+                    connectionId={t.connectionId}
+                    dbName={t.dbName}
+                />
+            </Tabs.TabPane>
+        )
+    })
+
     return (
-        <Tabs defaultActiveKey="1" type="card" size={'middle'}>
-            <Tabs.TabPane tab="Card Tab 1" key="1">
-                <SqlEditorView
-                    onExec={async (sql) => {
-                        const res = await api.getQueryResult(1, 'nodes', sql)
-                        setResult(res)
-                    }}
-                />
-                <SqlTableOutputView
-                    data={result}
-                    page={page}
-                    onPrev={() => setPage((prev) => prev - 1)}
-                    onNext={() => setPage((prev) => prev + 1)}
-                />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Card Tab 2" key="2">
-                Content of card tab 2
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Card Tab 3" key="3">
-                Content of card tab 3
-            </Tabs.TabPane>
+        <Tabs
+            onChange={(key) => {
+                dispatch(new SwitchTabCommand(parseInt(key, undefined)))
+            }}
+            activeKey={String(activeTabIndex)}
+            type="card"
+            size={'middle'}
+        >
+            {tabViews}
         </Tabs>
     )
 }

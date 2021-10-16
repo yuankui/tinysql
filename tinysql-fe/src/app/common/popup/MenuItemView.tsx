@@ -5,9 +5,10 @@ import { Action } from '.'
 
 interface Props {
     action: Action
+    onActionDone: () => any,
 }
 
-const MenuItemView: FunctionComponent<Props> = ({ action }) => {
+const MenuItemView: FunctionComponent<Props> = ({ action, onActionDone }) => {
     const menuClass = classNames(
         'flex',
         'flex-row',
@@ -21,7 +22,12 @@ const MenuItemView: FunctionComponent<Props> = ({ action }) => {
     const content = (
         <div
             className={menuClass}
-            onClick={action.confirmMessage ? undefined : action.onClick}
+            onClick={() => {
+                if (action.confirmMessage == null) {
+                    action.onClick()
+                    onActionDone()
+                }
+            }}
         >
             <span>{action.icon}</span>
             <span className="flex-1">{action.title}</span>
@@ -35,7 +41,10 @@ const MenuItemView: FunctionComponent<Props> = ({ action }) => {
     return (
         <Popconfirm
             title={action.confirmMessage}
-            onConfirm={action.onClick}
+            onConfirm={() => {
+                action.onClick()
+                onActionDone()
+            }}
             okText="Yes"
             cancelText="No"
         >

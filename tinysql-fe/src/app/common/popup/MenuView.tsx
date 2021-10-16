@@ -5,6 +5,7 @@ import MenuItemView from "./MenuItemView";
 
 interface Props {
     actions: Action[],
+    onActionDone: () => any,
 }
 const MenuView: FunctionComponent<Props> = (props) => {
     const menusClass = classNames(
@@ -17,7 +18,7 @@ const MenuView: FunctionComponent<Props> = (props) => {
     return <div className={menusClass}>
         {
             props.actions.map((action, i) => {
-                return <MenuItemView key={i} action={action}/>
+                return <MenuItemView onActionDone={props.onActionDone} key={i} action={action}/>
             })
         }
     </div>;
