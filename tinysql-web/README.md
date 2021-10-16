@@ -3,9 +3,6 @@
 ## Get Started
 
 ```zsh
-# get gin for hot reload
-# make sure put $GOPATH/bin into your $PATH
-go get github.com/codegangsta/gin
 
 # clone repo
 git clone https://github.com/yuankui/tinysql
@@ -14,6 +11,13 @@ cd tinysql/tinysql-web
 # fetch deps
 go get
 
-# start dev server
-gin
+# build
+go build
+
+# start
+./tinysql-web
+
+# output
+# [martini] listening on :3001 (development)
+
 ```
