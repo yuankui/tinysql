@@ -1,5 +1,6 @@
 # tinysql
 
+![image](snapshot.jpg)
 ## 架构
 
 
