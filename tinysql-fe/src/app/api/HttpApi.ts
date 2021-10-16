@@ -81,11 +81,16 @@ export class HttpApi implements Api {
         return json.data
     }
 
-    getQueryResult(
+    async getQueryResult(
         connectionId: number,
         database: string,
         sql: string
     ): Promise<TableResult> {
-        throw new Error('Method not implemented.')
+        const resp = await fetch(`${this.host}/tinysql/executeSQL?sql=${encodeURIComponent(sql)}&connectionId=${connectionId}&db=${database}`)
+        const json = await resp.json()
+        if (json.code !== 0) {
+            throw new Error(json.msg)
+        }
+        return json.data
     }
 }

@@ -19,7 +19,7 @@ const ContentView: FunctionComponent<ContentViewProps> = () => {
             <Tabs.TabPane tab="Card Tab 1" key="1">
                 <SqlEditorView
                     onExec={async (sql) => {
-                        const res = await api.getQueryResult(1, '', '')
+                        const res = await api.getQueryResult(1, 'nodes', sql)
                         setResult(res)
                     }}
                 />

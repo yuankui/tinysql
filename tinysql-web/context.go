@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -53,6 +54,7 @@ func (context *tinyContext) Error(msg string) {
 }
 
 func (context *tinyContext) GetUrlParam(name string) string {
+	fmt.Println(context.req.URL.Query())
 	return context.req.URL.Query().Get(name)
 }
 
