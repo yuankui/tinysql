@@ -36,7 +36,7 @@ const SqlTableOutputView: FunctionComponent<SqlTableOutputViewProps> = ({
                 <tbody>
                     {(data || {}).data.map((row, i) => {
                         return (
-                            <tr key={i}>
+                            <tr key={i} className='hover:bg-gray-100'>
                                 {row.map((cell, j) => {
                                     return <td key={j}>{cell}</td>
                                 })}
