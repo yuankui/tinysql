@@ -21,6 +21,3 @@ yarn dev
 - [ ] sql auto complete
 - [ ] quick view table data
 - [ ] support DDL
-
-## Refer
-- https://modeldba.com/sql-autocomplete/
