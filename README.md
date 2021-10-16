@@ -5,9 +5,9 @@
 
 ```
 fe(:3000) => web(:3001) => query(mysql)
-                        ||
-                        ||
-                       sqlite 
+                        |
+                        |
+                      sqlite 
 ```
 
 
