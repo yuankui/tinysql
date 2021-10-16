@@ -1,19 +1,17 @@
 import { MenuUnfoldOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
+import 'codemirror/mode/sql/sql'
 import { FunctionComponent, useState } from 'react'
 import { Controlled } from 'react-codemirror2'
-import { useApi } from '../../../hooks'
-import { format } from 'sql-formatter';
+import { format } from 'sql-formatter'
 
-import 'codemirror/mode/sql/sql'
 interface SqlEditorViewProps {
     onExec: (sql: string) => any
 }
 
 const SqlEditorView: FunctionComponent<SqlEditorViewProps> = ({onExec}) => {
-    const api = useApi()
 
-    const [sql, setSql] = useState("select * from json \nwhere name = 'hello'")
+    const [sql, setSql] = useState("")
 
     return (
         <div className="rounded-md overflow-hidden shadow-sm border-1">

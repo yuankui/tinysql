@@ -24,7 +24,7 @@ const SqlTableOutputView: FunctionComponent<SqlTableOutputViewProps> = ({
     const disableNext = data.data.length === 0
 
     return (
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto mt-4">
             <table>
                 <thead className="bg-gray-200">
                     <tr className="">
@@ -45,7 +45,7 @@ const SqlTableOutputView: FunctionComponent<SqlTableOutputViewProps> = ({
                     })}
                 </tbody>
             </table>
-            <div className="flex flex-row justify-end">
+            <div className="flex flex-row justify-start">
                 <div className="flex flex-row p-4 gap-2">
                     <Button
                         disabled={disablePrev}
