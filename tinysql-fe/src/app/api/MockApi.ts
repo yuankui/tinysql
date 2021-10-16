@@ -1,6 +1,9 @@
 import { Api, Connection, DataBase, Table, TableResult } from './index'
 
 export class MockApi implements Api {
+    deleteConnection(id: number): Promise<void> {
+        throw new Error('Method not implemented.')
+    }
     async getQueryResult(
         connectionId: number,
         database: string,
@@ -20,38 +23,12 @@ export class MockApi implements Api {
             {
                 id: 1,
                 title: 'First Connection',
-                databases: [
-                    {
-                        name: 'first_db',
-                        connectionId: 1,
-                    },
-                    {
-                        name: 'second_db',
-                        connectionId: 1,
-                    },
-                    {
-                        name: 'third_db',
-                        connectionId: 1,
-                    },
-                ],
+                databases: ['first_db', 'second_db'],
             },
             {
                 id: 2,
                 title: 'First Connection',
-                databases: [
-                    {
-                        name: 'first_db',
-                        connectionId: 2,
-                    },
-                    {
-                        name: 'second_db',
-                        connectionId: 2,
-                    },
-                    {
-                        name: 'third_db',
-                        connectionId: 2,
-                    },
-                ],
+                databases: ['first_db', 'second_db'],
             },
         ]
     }
@@ -68,20 +45,7 @@ export class MockApi implements Api {
         return {
             id,
             title: 'First Connection',
-            databases: [
-                {
-                    name: 'first_db',
-                    connectionId: id,
-                },
-                {
-                    name: 'second_db',
-                    connectionId: id,
-                },
-                {
-                    name: 'third_db',
-                    connectionId: id,
-                },
-            ],
+            databases: ['first_db', 'second_db'],
         }
     }
     async getDatabase(
@@ -91,23 +55,7 @@ export class MockApi implements Api {
         return {
             name: database,
             connectionId,
-            tables: [
-                {
-                    name: 'table1',
-                    connectionId,
-                    dbName: database,
-                },
-                {
-                    name: 'table2',
-                    connectionId,
-                    dbName: database,
-                },
-                {
-                    name: 'table3',
-                    connectionId,
-                    dbName: database,
-                },
-            ],
+            tables: ['first_db', 'second_db'],
         }
     }
     async getTable(

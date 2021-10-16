@@ -27,6 +27,7 @@ func DeleteConnect(db *DBGetter, params martini.Params, context TinyContext) {
 	context.OK("OK")
 }
 
+/// 获取所有连接
 func GetConnections(db *DBGetter, json TinyContext) {
 	connections := []Connection{}
 	db.GetDb().Find(&connections)
@@ -69,6 +70,7 @@ func GetConnection(db *DBGetter, json TinyContext, params martini.Params, suppor
 	json.OK(res)
 }
 
+/// 获取表列表
 func GetDatabase(db *DBGetter, context TinyContext, params martini.Params, supporterFactory *SupporterFactory) {
 	id := context.GetUrlParamInt("connectionId")
 	name := context.GetUrlParam("dbName")
@@ -95,6 +97,7 @@ func GetDatabase(db *DBGetter, context TinyContext, params martini.Params, suppo
 	context.OK(res)
 }
 
+/// 获取表信息
 func GetTable(db *DBGetter, context TinyContext, params martini.Params, supporterFactory *SupporterFactory) {
 	connectionId := context.GetUrlParamInt("connectionId")
 	dbName := context.GetUrlParam("dbName")
@@ -121,4 +124,47 @@ func GetTable(db *DBGetter, context TinyContext, params martini.Params, supporte
 	}
 
 	context.OK(res)
+}
+
+func ExecuteSql(db *DBGetter, context TinyContext, params martini.Params, supporterFactory *SupporterFactory) {
+	sql := context.GetUrlParam("sql")
+	connectionId := context.GetUrlParamInt("connectionId")
+	dbName := context.GetUrlParam("db")
+
+	sqlType, err := parse(sql)
+	if err != nil {
+		context.Error(err.Error())
+		return
+	}
+
+	// 获取supporter
+	var conn Connection
+	db.GetDb().First(&conn, "id = ?", connectionId)
+
+	supporter := supporterFactory.GetSupporter(conn.Type)
+
+	if supporter == nil {
+		context.Error("no supporter found")
+		return
+	}
+
+	connect := supporter.ConnectTo(conn.Config)
+
+	switch sqlType {
+	case Select:
+		res, err := connect.ExecSelect(dbName, sql)
+		if err != nil {
+			context.Error(err.Error())
+		} else {
+			context.OK(res)
+		}
+		return
+	case Update:
+		res, err := connect.ExecUpdate(dbName, sql)
+		if err != nil {
+			context.Error(err.Error())
+		} else {
+			context.OK(res)
+		}
+	}
 }

@@ -49,8 +49,33 @@ type MysqlConnect struct {
 	db *sql.DB
 }
 
-func (m *MysqlConnect) Exec(sql string) Dataset {
-	panic("not implemented") // TODO: Implement
+func (m *MysqlConnect) ExecSelect(db string, sql string) (*Dataset, error) {
+	m.db.Exec("use " + db)
+	rows, err := m.db.Query(sql)
+	if err != nil {
+		return nil, err
+	}
+	fields, err := rows.Columns()
+	if err != nil {
+		return nil, err
+	}
+
+	lines := [][]interface{}{}
+
+	for rows.Next() {
+		var row []interface{} = make([]interface{}, len(fields))
+		for i, _ := range row {
+			row[i] = new(string)
+		}
+
+		rows.Scan(row...)
+		lines = append(lines, row)
+	}
+
+	return &Dataset{
+		Fields: fields,
+		Data:   lines,
+	}, nil
 }
 
 func (m *MysqlConnect) ShowDatabases() []string {
@@ -124,4 +149,8 @@ func (m *MysqlConnect) ShowFields(db string, tb string) []Field {
 		})
 	}
 	return fields
+}
+
+func (m *MysqlConnect) ExecUpdate(db string, sql string) (string, error) {
+	panic("not implement")
 }

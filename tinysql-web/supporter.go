@@ -6,15 +6,16 @@ type SqlSupporter interface {
 }
 
 type Connect interface {
-	Exec(sql string) Dataset
+	ExecSelect(db string, sql string) (*Dataset, error)
+	ExecUpdate(db string, sql string) (string, error)
 	ShowDatabases() []string
 	ShowTables(db string) []string
 	ShowFields(db string, tb string) []Field
 }
 
 type Dataset struct {
-	Fields []string
-	Data   [][]interface{}
+	Fields []string        `json:"fields"`
+	Data   [][]interface{} `json:"data"`
 }
 
 type SupporterFactory struct{}

@@ -30,6 +30,7 @@ func main() {
 		r.Get("/connection/:id", GetConnection)
 		r.Get("/database", GetDatabase)
 		r.Get("/table", GetTable)
+		r.Get("/executeSQL", ExecuteSql)
 	})
 
 	m.Run()

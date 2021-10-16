@@ -1,4 +1,4 @@
-import { TableOutlined, TagFilled } from '@ant-design/icons'
+import { TableOutlined, TagOutlined } from '@ant-design/icons'
 import { FunctionComponent, useState } from 'react'
 import { Table } from '../../api'
 import { If, sleep } from '../../common'
@@ -46,7 +46,7 @@ const TableView: FunctionComponent<TableViewProps> = ({ table }) => {
                     {(fields || []).map((f) => {
                         return (
                             <div key={f.name} className="flex flex-row items-center justify-start overflow-hidden">
-                                <TagFilled className='mr-2' />
+                                <TagOutlined className='mr-2' />
                                 <div className='mr-2'>{f.name}</div>
                                 <div className='opacity-50 mr-2'>{f.type}</div>
                                 <div className='ellipsis-item'>{f.comment}</div>

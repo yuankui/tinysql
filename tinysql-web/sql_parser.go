@@ -1,17 +1,29 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/blastrain/vitess-sqlparser/sqlparser"
 )
 
-func parse(sql string) {
-	stmt, err := sqlparser.Parse("select * from user_items where user_id=1 order by created_at limit 3 offset 10")
+type SqlType int
+
+const (
+	UnKnown SqlType = 0
+	Select  SqlType = 1
+	Update  SqlType = 2
+)
+
+func parse(sql string) (SqlType, error) {
+	stmt, err := sqlparser.Parse(sql)
 	if err != nil {
-		panic(err)
+		return UnKnown, err
 	}
 
-	
-	fmt.Printf("stmt = %+v\n", stmt)
+	switch stmt.(type) {
+	case *sqlparser.Select, *sqlparser.Show:
+		return Select, nil
+	case *sqlparser.Update, *sqlparser.Delete, *sqlparser.DDL:
+		return Update, nil
+	}
+
+	return UnKnown, nil
 }
